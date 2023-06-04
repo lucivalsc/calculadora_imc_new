@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'package:calculadora_imc/temas/cores.dart';
+import 'package:calculadora_imc/app/common/styles/cores.dart';
 
-class TextoWidget extends StatelessWidget {
+class TextWidget extends StatelessWidget {
   final String texto;
   final String textoHint;
   final TextEditingController controller;
   final void Function(String)? onChanged;
-  const TextoWidget({
+  final List<TextInputFormatter>? inputFormatters;
+  const TextWidget({
     Key? key,
     required this.texto,
     required this.textoHint,
     required this.controller,
     this.onChanged,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -59,6 +62,7 @@ class TextoWidget extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 20,
                 ),
+                inputFormatters: inputFormatters,
               ),
             ),
           ),

@@ -23,6 +23,18 @@ abstract class _ImcStoreBase with Store {
   @observable
   Color? corIMC;
 
+  @action
+  atualizarCalculo(String value, String type) {
+    if (value.isNotEmpty && value.length < 6) {
+      if (type == 'peso') {
+        peso = double.parse(value.replaceAll(',', '.'));
+      } else {
+        altura = double.parse(value.replaceAll(',', '.'));
+      }
+      calcular();
+    }
+  }
+
   //IMC = peso / (altura x altura)
   @action
   calcular() {
@@ -30,28 +42,28 @@ abstract class _ImcStoreBase with Store {
       var valor = (peso! / (altura! * altura!)).toStringAsFixed(2);
       alternarResultado(valor);
       getImagem(valor);
-      return resultado = double.parse(valor);
+      resultado = double.parse(valor);
     }
   }
 
   alternarResultado(String valor) {
     if (valor.isNotEmpty) {
-      double _resultado = double.parse(valor);
-      if (_resultado < 18.5) {
+      double resultado = double.parse(valor);
+      if (resultado < 18.5) {
         mensagem = 'Abaixo do peso';
-      } else if (_resultado >= 18.5 && _resultado <= 24.9) {
+      } else if (resultado >= 18.5 && resultado <= 24.9) {
         mensagem = 'Peso normal';
       }
-      if (_resultado >= 25 && _resultado <= 29.9) {
+      if (resultado >= 25 && resultado <= 29.9) {
         mensagem = 'Sobrepeso';
       }
-      if (_resultado >= 30 && _resultado <= 34.9) {
+      if (resultado >= 30 && resultado <= 34.9) {
         mensagem = 'Obesidade grau 1';
       }
-      if (_resultado >= 35 && _resultado < 39.9) {
+      if (resultado >= 35 && resultado < 39.9) {
         mensagem = 'Obesidade grau 2';
       }
-      if (_resultado > 40) {
+      if (resultado > 40) {
         mensagem = 'Obesidade grau 3';
       }
     } else {
@@ -61,14 +73,14 @@ abstract class _ImcStoreBase with Store {
 
   getImagem(String valor) {
     if (valor.isNotEmpty) {
-      double _resultado = double.parse(valor);
-      if (_resultado < 18.5) {
+      double resultado = double.parse(valor);
+      if (resultado < 18.5) {
         corIMC = const Color.fromRGBO(33, 166, 243, 1);
         imagem = Image.asset('imagens/1.jpg');
-      } else if (_resultado >= 18.5 && _resultado <= 24.9) {
+      } else if (resultado >= 18.5 && resultado <= 24.9) {
         corIMC = const Color.fromRGBO(64, 188, 102, 1);
         imagem = Image.asset('imagens/2.jpg');
-      } else if (_resultado > 25) {
+      } else if (resultado > 25) {
         corIMC = const Color.fromRGBO(254, 83, 73, 1);
         imagem = Image.asset('imagens/3.jpg');
       }
