@@ -1,5 +1,5 @@
 {
-    "name": "calculadora_imc",
+    "name": "Calculadora IMC",
     "short_name": "calculadora_imc",
     "start_url": ".",
     "display": "standalone",
